@@ -187,7 +187,7 @@ public class Test {
         if ((one.subset(two)) && (two.subset(three)) && !(one.subset(three))) {
             System.out.println("check Transitivity failed");
         } else {
-            System.out.println("Success for CheckTransitivity");
+            System.out.println("Success for checkTransitivity");
         }
     }
 

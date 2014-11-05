@@ -10,7 +10,7 @@ package bags;
  * @author Isabella
  * @param <T>
  */
-public class Tree<T extends Comparable > implements Set<T>, Sequenced, Sequence {
+public class Tree<T extends Comparable> implements Set<T>, Sequenced, Sequence {
 
     public Set left, right;
     public T data;
@@ -30,9 +30,9 @@ public class Tree<T extends Comparable > implements Set<T>, Sequenced, Sequence 
     public int cardinality() {
         return 1 + left.cardinality() + right.cardinality();
     }
-    
-    public int fullCardinality(){
-        return count + left.cardinality() + right.cardinality();
+
+    public int fullCardinality() {
+        return count + left.fullCardinality() + right.fullCardinality();
     }
 
     public boolean isEmptyHuh() {
@@ -46,6 +46,16 @@ public class Tree<T extends Comparable > implements Set<T>, Sequenced, Sequence 
             return new Tree(this.left.add(num), this.data, count, this.right);
         } else {
             return new Tree(this.left, this.data, count, this.right.add(num));
+        }
+    }
+
+    public Set addSome(T elt, int n) {
+        if (elt.compareTo(data) == 0) {
+            return new Tree(this.left, data, count + n, this.right);
+        } else if (elt.compareTo(data) < 0) {
+            return new Tree(left.addSome(elt, n), data, count, right);
+        } else {
+            return new Tree(left, data, count, right.addSome(elt, n));
         }
     }
 
@@ -63,21 +73,21 @@ public class Tree<T extends Comparable > implements Set<T>, Sequenced, Sequence 
             return new Tree(left, this.data, count, right.remove(elt));
         }
     }
-    
-    public Set removeSome(T elt, int num) {
-        if (elt.compareTo(data) == 0){
-            return new Tree(left, data, count-num, right);
-        } else if (elt.compareTo(data) < 0){
-            return new Tree(left.removeSome(elt, num), data, count, right);
+
+    public Set removeSome(T elt, int n) {
+        if (elt.compareTo(data) == 0) {
+            return new Tree(left, data, count - n, right);
+        } else if (elt.compareTo(data) < 0) {
+            return new Tree(left.removeSome(elt, n), data, count, right);
         } else {
-            return new Tree(left, data, count, right.removeSome(elt, num));
+            return new Tree(left, data, count, right.removeSome(elt, n));
         }
     }
-    
-    public Set removeAll(T elt){
-        if (elt.compareTo(this.data) == 0){
+
+    public Set removeAll(T elt) {
+        if (elt.compareTo(this.data) == 0) {
             return this.right.union(left);
-        } else if (elt.compareTo(this.data) < 0){
+        } else if (elt.compareTo(this.data) < 0) {
             return new Tree(left.removeAll(elt), data, count, right);
         } else {
             return new Tree(left, data, count, right.removeAll(elt));
@@ -109,11 +119,24 @@ public class Tree<T extends Comparable > implements Set<T>, Sequenced, Sequence 
     }
 
     public Set diff(Set u) {
-        if (!u.member(this.data)) {
-            return new Tree(this.left.diff(u), this.data, count, this.right.diff(u));
+        if ((u.member(data))) {
+//            if (this.getCount(data) == u.getCount(data)) {
+//                return left.union(right).diff(u.remove(data));
+            if (this.getCount(data) > u.getCount(data)) {
+                return this.removeSome(data, u.getCount(data)).diff(u.removeAll(data));
+            } else {
+                return left.union(right).diff(u.remove(data));
+            }
+        
+//        if (!u.member(this.data)) {
+//            return new Tree(this.left.diff(u), this.data, count, this.right.diff(u));
+//        } else {
+//            return this.left.diff(u).union(this.right.diff(u));
+//        }
         } else {
-            return this.left.diff(u).union(this.right.diff(u));
+            return new Tree(left.diff(u), data, count, right.diff(u));
         }
+        
     }
 
     public boolean equal(Set u) {
@@ -140,20 +163,20 @@ public class Tree<T extends Comparable > implements Set<T>, Sequenced, Sequence 
             return this.right.getCount(elt);
         }
     }
-    
-    public T here(){
+
+    public T here() {
         return data;
     }
-    
-    public boolean notEmpty(){
-        return 
+
+    public boolean notEmpty() {
+        return true;
     }
-    
-    public Sequence next(){
-        return 
+
+    public Sequence next() {
+        return new Wood(left, right);
     }
-    
-    public Sequence seq(){
+
+    public Sequence seq() {
         return 
     }
 }

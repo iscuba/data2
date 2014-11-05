@@ -23,6 +23,10 @@ public class Leaf<T extends Comparable > implements Set<T>{
     public int cardinality() {
         return 0;
     }
+    
+    public int fullCardinality(){
+        return 0;
+    }
 
     public boolean isEmptyHuh() {
         return true;
@@ -35,8 +39,20 @@ public class Leaf<T extends Comparable > implements Set<T>{
     public Set add(T elt) {
         return new Tree(new Leaf(), elt, 1, new Leaf());
     }
-
+    
+    public Set addSome(T elt, int n){
+        return new Tree(new Leaf(), elt, n, new Leaf());
+    }
+            
     public Set remove(T elt) {
+        return new Leaf();
+    }
+    
+    public Set removeSome(T elt, int n){
+        return new Leaf();
+    }
+    
+    public Set removeAll(T elt){
         return new Leaf();
     }
 

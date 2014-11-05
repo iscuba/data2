@@ -13,15 +13,23 @@ package bags;
 public interface Set<T extends Comparable> {
 
     public int cardinality();
+    
+    public int fullCardinality();
 
     public boolean isEmptyHuh();
 
     public boolean member(T elt);
 
     public Set add(T elt);
+    
+    public Set addSome(T elt, int n);
 
     public Set remove(T elt);
 
+    public Set removeSome(T elt, int n);
+    
+    public Set removeAll(T elt);
+    
     public Set union(Set u);
 
     public Set inter(Set u);
