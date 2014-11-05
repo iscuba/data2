@@ -5,17 +5,14 @@
  */
 
 package bags;
+
 /**
  *
  * @author Isabella
  */
-public class Bags {
+public interface Sequenced {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args){
+    public Sequence seq();
 
-    }
     
 }

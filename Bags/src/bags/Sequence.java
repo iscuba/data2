@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package bags;
+
 /**
  *
  * @author Isabella
  */
-public class Bags {
+public interface Sequence<T> {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args){
+    public T here();
 
-    }
-    
+    public boolean notEmpty();
+
+    public Sequence next();
+    // If notEmpty returns false, then next() can return anything and
+    // here() can return anything
 }
