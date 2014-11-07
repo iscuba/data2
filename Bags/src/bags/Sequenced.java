@@ -9,8 +9,9 @@ package bags;
 /**
  *
  * @author Isabella
+ * @param <T>
  */
-public interface Sequenced {
+public interface Sequenced<T extends Comparable> {
 
     public Sequence seq();
 

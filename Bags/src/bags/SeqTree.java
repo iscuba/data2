@@ -9,36 +9,38 @@ package bags;
 /**
  *
  * @author Isabella
+ * @param <T>
  */
-public class Wood<T> implements Sequence<T>{
+public class SeqTree<T extends Comparable<T>> implements Sequence<T>, Sequenced<T>{
     
-    Sequence left, right;
+    Sequence<T> left, right;
     
-    public Wood(Sequence left, Sequence right){
+    public SeqTree(Sequence<T> left, Sequence<T> right){
         this.left = left;
         this.right = right;
     }
     
-    //I dont think this is what I'm supposed to do
     public T here(){
         if (left.notEmpty()){
             return left.here();
         } else {
             return right.here();
-        }
+        } 
     }
     
-    //does this actually work or? 
     public boolean notEmpty(){
         return left.notEmpty() || right.notEmpty();
     }
     
-    //but what if there is nothing next?
-    public Sequence next(){
+    public Sequence<T> next() {
         if (left.notEmpty()){
-            return new Wood(left.next(), right);
+            return new SeqTree(left.next(), right);
         } else {
-            return new Wood(left, right.next());
+            return this.right.next();
         }
+    }
+    
+    public Sequence<T> seq(){
+        return this;
     }
 }

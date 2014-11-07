@@ -11,73 +11,96 @@ package bags;
  * @author Isabella
  * @param <T>
  */
-public class Leaf<T extends Comparable > implements Set<T>{
+public class Leaf<T extends Comparable > implements RBTree<T>{
     
-      public Leaf() {
+      boolean color;
+
+    // since all leaves are black:
+    public Leaf() {
+        this.color = false;
     }
 
-    public Set empty() {
+    public int getCount(T o) {
+        return 0;
+    }
+    
+    public RBTree empty(){
         return new Leaf();
+    }
+
+    public boolean isEmpty() {
+        return true;
     }
 
     public int cardinality() {
         return 0;
     }
-    
-    public int fullCardinality(){
-        return 0;
-    }
 
-    public boolean isEmptyHuh() {
-        return true;
-    }
-
-    public boolean member(T elt) {
+    public boolean member(T o) {
         return false;
     }
 
-    public Set add(T elt) {
-        return new Tree(new Leaf(), elt, 1, new Leaf());
+    public RBTree add(T o) {
+        return new Tree(new Leaf(), o, 1, new Leaf(), false);
     }
-    
-    public Set addSome(T elt, int n){
-        return new Tree(new Leaf(), elt, n, new Leaf());
+
+    public RBTree addSome(T o, int num) {
+        return new Tree(new Leaf(), o, num, new Leaf(), false);
     }
-            
-    public Set remove(T elt) {
-        return new Leaf();
-    }
-    
-    public Set removeSome(T elt, int n){
-        return new Leaf();
-    }
-    
-    public Set removeAll(T elt){
+
+    public RBTree blacken() {
         return new Leaf();
     }
 
-    public Set union(Set u) {
-        return u;
+    public boolean isRed() {
+        return this.color;
     }
 
-    public Set inter(Set u) {
+    public RBTree balance() {
         return new Leaf();
     }
 
-    public Set diff(Set u) {
-        return u;
+    public RBTree union(RBTree t) {
+        return t;
     }
 
-    public boolean equal(Set u) {
-        return u.isEmptyHuh();
+    public RBTree remove(T o) {
+        return new Leaf();
     }
 
-    public boolean subset(Set u) {
-        return u.isEmptyHuh();
+    public RBTree removeSome(T o, int num) {
+        return new Leaf();
+    }
+
+    public RBTree removeAll(T o) {
+        return new Leaf();
+    }
+
+    public RBTree inter(RBTree t) {
+        return new Leaf();
+    }
+
+    public RBTree diff(RBTree t) {
+        return t;
+    }
+
+    public boolean equal(RBTree t) {
+        return false;
+    }
+
+    public boolean subset(RBTree t) {
+        return true;
     }
     
-    public int getCount(T elt){
+    public Sequence seq(){
+        return new SeqLeaf();
+    }
+    
+    public int sumItUp(Sequence seq){
         return 0;
     }
     
+    public int sumIt(){
+        return sumItUp(this.seq());
+    }
 }

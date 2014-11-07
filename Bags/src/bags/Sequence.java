@@ -8,14 +8,15 @@ package bags;
 /**
  *
  * @author Isabella
+ * @param <T>
  */
-public interface Sequence<T> {
+public interface Sequence<T extends Comparable<T>> {
 
     public T here();
 
     public boolean notEmpty();
 
-    public Sequence next();
+    public Sequence<T> next();
     // If notEmpty returns false, then next() can return anything and
     // here() can return anything
 }

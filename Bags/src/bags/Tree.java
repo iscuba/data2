@@ -10,46 +10,42 @@ package bags;
  * @author Isabella
  * @param <T>
  */
-public class Tree<T extends Comparable> implements Set<T>, Sequenced, Sequence {
+public class Tree<T extends Comparable> implements RBTree<T> {
 
-    public Set left, right;
+    public RBTree left, right;
     public T data;
     public int count;
+    public boolean color;
 
-    public Tree(Set left, T n, int count, Set right) {
+    public Tree(RBTree left, T n, int count, RBTree right, boolean color) {
         this.left = left;
         this.right = right;
         data = n;
         this.count = count;
     }
+    
+    public Tree(RBTree left, T n, RBTree right){
+        
+    }
 
-    public static Set empty() {
+    public RBTree empty() {
         return new Leaf();
     }
 
     public int cardinality() {
-        return 1 + left.cardinality() + right.cardinality();
+        return count + left.cardinality() + right.cardinality();
     }
 
-    public int fullCardinality() {
-        return count + left.fullCardinality() + right.fullCardinality();
-    }
 
-    public boolean isEmptyHuh() {
+    public boolean isEmpty() {
         return false;
     }
 
-    public Set add(T num) {
-        if (num.compareTo(data) == 0) {
-            return new Tree(this.left, data, count + 1, this.right);
-        } else if (num.compareTo(data) < 0) {
-            return new Tree(this.left.add(num), this.data, count, this.right);
-        } else {
-            return new Tree(this.left, this.data, count, this.right.add(num));
-        }
+    public RBTree add(T num) {
+        return this.addSome(num, 1);
     }
 
-    public Set addSome(T elt, int n) {
+    public RBTree addSome(T elt, int n) {
         if (elt.compareTo(data) == 0) {
             return new Tree(this.left, data, count + n, this.right);
         } else if (elt.compareTo(data) < 0) {
@@ -58,23 +54,24 @@ public class Tree<T extends Comparable> implements Set<T>, Sequenced, Sequence {
             return new Tree(left, data, count, right.addSome(elt, n));
         }
     }
-
-    public Set remove(T elt) {
-        if (elt == data) {
-            if (this.count == 1) {
-                return left.union(right);
-            } else {
-                return new Tree(this.left, this.data, count - 1, this.right);
-            }
-
-        } else if (elt.compareTo(data) < 0) {
-            return new Tree(left.remove(elt), data, count, right);
-        } else {
-            return new Tree(left, this.data, count, right.remove(elt));
-        }
+    
+    public RBTree blacken(){
+        return new Tree(left, data, count, right, false);
+    }
+    
+    public boolean isRed(){
+        return color;
+    }
+    
+    public RBTree balance(){
+        //my trees don't balance
     }
 
-    public Set removeSome(T elt, int n) {
+    public RBTree remove(T elt) {
+        return this.removeSome(elt, 1);
+    }
+
+    public RBTree removeSome(T elt, int n) {
         if (elt.compareTo(data) == 0) {
             return new Tree(left, data, count - n, right);
         } else if (elt.compareTo(data) < 0) {
@@ -84,7 +81,7 @@ public class Tree<T extends Comparable> implements Set<T>, Sequenced, Sequence {
         }
     }
 
-    public Set removeAll(T elt) {
+    public RBTree removeAll(T elt) {
         if (elt.compareTo(this.data) == 0) {
             return this.right.union(left);
         } else if (elt.compareTo(this.data) < 0) {
@@ -95,7 +92,7 @@ public class Tree<T extends Comparable> implements Set<T>, Sequenced, Sequence {
     }
 
     public boolean member(T elt) {
-        if (elt == data) {
+        if (elt.compareTo(data)==0) {
             return true;
         } else if (elt.compareTo(data) < 0) {
             return left.member(elt);
@@ -105,12 +102,12 @@ public class Tree<T extends Comparable> implements Set<T>, Sequenced, Sequence {
         }
     }
 
-    public Set union(Set u) {
+    public RBTree union(RBTree u) {
         return left.union(right.union(u)).add(data);
 
     }
 
-    public Set inter(Set u) {
+    public RBTree inter(RBTree u) {
         if (u.member(this.data)) {
             return new Tree(this.left.inter(u), data, count, this.right.inter(u));
         } else {
@@ -118,32 +115,24 @@ public class Tree<T extends Comparable> implements Set<T>, Sequenced, Sequence {
         }
     }
 
-    public Set diff(Set u) {
+    public RBTree diff(RBTree u) {
         if ((u.member(data))) {
-//            if (this.getCount(data) == u.getCount(data)) {
-//                return left.union(right).diff(u.remove(data));
             if (this.getCount(data) > u.getCount(data)) {
                 return this.removeSome(data, u.getCount(data)).diff(u.removeAll(data));
             } else {
                 return left.union(right).diff(u.remove(data));
             }
-        
-//        if (!u.member(this.data)) {
-//            return new Tree(this.left.diff(u), this.data, count, this.right.diff(u));
-//        } else {
-//            return this.left.diff(u).union(this.right.diff(u));
-//        }
         } else {
             return new Tree(left.diff(u), data, count, right.diff(u));
         }
         
     }
 
-    public boolean equal(Set u) {
+    public boolean equal(RBTree u) {
         return (this.subset(u) && u.subset(this));
     }
 
-    public boolean subset(Set u) {
+    public boolean subset(RBTree u) {
         if (!u.member(data)) {
             return false;
         } else {
@@ -164,19 +153,20 @@ public class Tree<T extends Comparable> implements Set<T>, Sequenced, Sequence {
         }
     }
 
-    public T here() {
-        return data;
-    }
-
-    public boolean notEmpty() {
-        return true;
-    }
-
-    public Sequence next() {
-        return new Wood(left, right);
-    }
-
     public Sequence seq() {
-        return 
+        return new FullSeq(data, count, new SeqTree(left.seq(), right.seq()));
+    }
+    
+    public int sumItUp(Sequence seq){
+        int sum = 0;
+        while(seq.notEmpty()){
+            sum = sum + 1;
+            seq = seq.next();
+        }
+        return sum;
+    }
+    
+    public int sumIt(){
+        return sumItUp(this.seq());
     }
 }

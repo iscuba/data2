@@ -10,11 +10,11 @@ import bags.Leaf;
 import bags.Set;
 import java.util.*;
 
-/**
+/** 
  *
  * @author Isabella
  */
-public class TestGenerics {
+public class TestGenerics { 
 
     // make random strings:
     public static String randString() {
