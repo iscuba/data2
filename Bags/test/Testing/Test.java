@@ -502,15 +502,15 @@ public class Test {
         System.out.println();
         
         
-        checkAdd(randStringSet(new Leaf(), randNum(1, 100)));
-        checkAdd(randStringSet(new Leaf(), randNum(1, 100)));
-        checkAdd(randStringSet(new Leaf(), randNum(1, 100)));
-        checkAdd(randStringSet(new Leaf(), randNum(1, 100)));
-        checkAdd(randStringSet(new Leaf(), randNum(1, 100)));
-        checkAdd(randStringSet(new Leaf(), randNum(1, 100)));
-        checkAdd(randStringSet(new Leaf(), randNum(1, 100)));
-        checkAdd(randStringSet(new Leaf(), randNum(1, 100)));
-        checkAdd(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckAdd(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckAdd(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckAdd(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckAdd(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckAdd(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckAdd(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckAdd(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckAdd(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckAdd(randStringSet(new Leaf(), randNum(1, 100)));
 
         
         checkSubset(randStringSet(new Leaf(), randNum(1, 100)));

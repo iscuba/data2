@@ -47,6 +47,17 @@ public class TestGenerics {
             System.out.println("Fail for testMemberAdd");
         }
     }
+    
+    public static void scheckAdd(RBTree set) {
+        String str = randString();
+        RBTree set2 = set.add(str);
+        if (set2.member(str)) {
+            System.out.println("Success for checkAdd");
+        } else {
+            System.out.println("Fali for checkAdd");
+        }
+    }
+
 
     public static void stestAddCardinality(RBTree set1, String num) {
         int test = set1.add(num).cardinality();
