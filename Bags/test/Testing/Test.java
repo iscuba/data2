@@ -64,7 +64,7 @@ public class Test {
         int num = randNum(0, 100);
         RBTree set2 = set.add(num);
         RBTree removed = set2.remove(num);
-        if (removed.getCount(num) < set.getCount(num)) {
+        if (removed.getCount(num) <= set.getCount(num)) {
             System.out.println("Success for checkRemove");
         } //        if ((!removed.member(num)) || (removed.getCount(num)< set.getCount(num))) {
         //            System.out.println("Success for checkRemove");
@@ -308,19 +308,19 @@ public class Test {
 
     public static void main(String[] args) {
 
-        System.out.println("TESTING FOR INT FINITE BAGS: ");
+        System.out.println("  TESTING FOR INT FINITE BAGS: ");
 
-        checkEmpty(new Leaf());
-        checkEmpty(new Leaf());
-        checkEmpty(new Leaf());
-        checkEmpty(new Leaf());
-        checkEmpty(new Leaf());
-        checkEmpty(new Leaf());
-        checkEmpty(new Leaf());
-        checkEmpty(new Leaf());
-        checkEmpty(new Leaf());
-        checkEmpty(new Leaf());
-
+        checkEmpty(Tree.empty());
+        checkEmpty(Tree.empty());
+        checkEmpty(Tree.empty());
+        checkEmpty(Tree.empty());
+        checkEmpty(Tree.empty());
+        checkEmpty(Tree.empty());
+        checkEmpty(Tree.empty());
+        checkEmpty(Tree.empty());
+        checkEmpty(Tree.empty());
+        checkEmpty(Tree.empty());
+        
         checkAdd(randSet(new Leaf(), randNum(1, 100)));
         checkAdd(randSet(new Leaf(), randNum(1, 100)));
         checkAdd(randSet(new Leaf(), randNum(1, 100)));
@@ -513,27 +513,27 @@ public class Test {
         scheckAdd(randStringSet(new Leaf(), randNum(1, 100)));
 
         
-        checkSubset(randStringSet(new Leaf(), randNum(1, 100)));
-        checkSubset(randStringSet(new Leaf(), randNum(1, 100)));
-        checkSubset(randStringSet(new Leaf(), randNum(1, 100)));
-        checkSubset(randStringSet(new Leaf(), randNum(1, 100)));
-        checkSubset(randStringSet(new Leaf(), randNum(1, 100)));
-        checkSubset(randStringSet(new Leaf(), randNum(1, 100)));
-        checkSubset(randStringSet(new Leaf(), randNum(1, 100)));
-        checkSubset(randStringSet(new Leaf(), randNum(1, 100)));
-        checkSubset(randStringSet(new Leaf(), randNum(1, 100)));
-        checkSubset(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckSubset(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckSubset(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckSubset(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckSubset(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckSubset(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckSubset(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckSubset(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckSubset(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckSubset(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckSubset(randStringSet(new Leaf(), randNum(1, 100)));
         
-        checkRemove(randStringSet(new Leaf(), randNum(1, 100)));
-        checkRemove(randStringSet(new Leaf(), randNum(1, 100)));
-        checkRemove(randStringSet(new Leaf(), randNum(1, 100)));
-        checkRemove(randStringSet(new Leaf(), randNum(1, 100)));
-        checkRemove(randStringSet(new Leaf(), randNum(1, 100)));
-        checkRemove(randStringSet(new Leaf(), randNum(1, 100)));
-        checkRemove(randStringSet(new Leaf(), randNum(1, 100)));
-        checkRemove(randStringSet(new Leaf(), randNum(1, 100)));
-        checkRemove(randStringSet(new Leaf(), randNum(1, 100)));
-        checkRemove(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckRemove(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckRemove(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckRemove(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckRemove(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckRemove(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckRemove(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckRemove(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckRemove(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckRemove(randStringSet(new Leaf(), randNum(1, 100)));
+        scheckRemove(randStringSet(new Leaf(), randNum(1, 100)));
 
         testUnionSubset(randStringSet(new Leaf(), randNum(1, 100)), randStringSet(new Leaf(), randNum(1,100)));
         testUnionSubset(randStringSet(new Leaf(), randNum(1, 100)), randStringSet(new Leaf(), randNum(1,100)));

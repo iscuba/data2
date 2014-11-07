@@ -40,7 +40,7 @@ public class Tree<T extends Comparable> implements RBTree<T> {
         this.color = color;
     }
 
-    public RBTree empty() {
+    public static RBTree empty() {
         return new Leaf();
     }
 
@@ -126,11 +126,6 @@ public class Tree<T extends Comparable> implements RBTree<T> {
         } else {
             return this.left.inter(u).union(this.right.inter(u));
         }
-//        if (u.member(this.data)) {
-//            return new Tree(this.left.inter(u), data, count, this.right.inter(u),color);
-//        } else {
-//            return left.inter(u).union(right.inter(u));
-//        }
     }
 
     public RBTree diff(RBTree u) {

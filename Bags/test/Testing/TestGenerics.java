@@ -57,6 +57,30 @@ public class TestGenerics {
             System.out.println("Fali for checkAdd");
         }
     }
+    
+    public static void scheckSubset(RBTree set) {
+        String num = randString();
+        RBTree subs = set.add(num);
+        if (set.subset(subs)) {
+            System.out.println("Success for CheckSubset");
+        } else {
+            System.out.println("Fail for CheckSubset");
+        }
+    }
+    
+    public static void scheckRemove(RBTree set) {
+        String num = randString();
+        RBTree set2 = set.add(num);
+        RBTree removed = set2.remove(num);
+        if (removed.getCount(num) <= set.getCount(num)) {
+            System.out.println("Success for checkRemove");
+        } //        if ((!removed.member(num)) || (removed.getCount(num)< set.getCount(num))) {
+        //            System.out.println("Success for checkRemove");
+        //        } 
+        else {
+            System.out.println("Fail for checkRemove ");
+        }
+    }
 
 
     public static void stestAddCardinality(RBTree set1, String num) {
