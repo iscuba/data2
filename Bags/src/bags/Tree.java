@@ -156,9 +156,7 @@ public class Tree<T extends Comparable> implements RBTree<T> {
     }
 
     public int getCount(T elt) {
-        if (!this.member(elt)) {
-            return -1;
-        } else if (elt.compareTo(data)== 0) {
+        if (elt.compareTo(data)== 0) {
             return this.count;
         } else if (elt.compareTo(data) < 0) {
             return this.left.getCount(elt);
