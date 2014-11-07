@@ -22,10 +22,22 @@ public class Tree<T extends Comparable> implements RBTree<T> {
         this.right = right;
         data = n;
         this.count = count;
+        this.color = color;
     }
     
     public Tree(RBTree left, T n, RBTree right){
-        
+        this.left = left;
+        this.data = n;
+        this.count = 1;
+        this.color = true;
+    }
+    
+    public Tree(T n, int count, boolean color){
+        this.left = new Leaf();
+        this.data = n;
+        this.count = count;
+        this.right = new Leaf();
+        this.color = color;
     }
 
     public RBTree empty() {
@@ -64,7 +76,7 @@ public class Tree<T extends Comparable> implements RBTree<T> {
     }
     
     public RBTree balance(){
-        //my trees don't balance
+        //my trees don't balance :(
     }
 
     public RBTree remove(T elt) {
@@ -109,10 +121,16 @@ public class Tree<T extends Comparable> implements RBTree<T> {
 
     public RBTree inter(RBTree u) {
         if (u.member(this.data)) {
-            return new Tree(this.left.inter(u), data, count, this.right.inter(u),color);
+            int min = Math.min(u.getCount(data), this.getCount(data));
+            return new Tree(this.left.inter(u), this.data, min, this.right.inter(u),color);
         } else {
-            return left.inter(u).union(right.inter(u));
+            return this.left.inter(u).union(this.right.inter(u));
         }
+//        if (u.member(this.data)) {
+//            return new Tree(this.left.inter(u), data, count, this.right.inter(u),color);
+//        } else {
+//            return left.inter(u).union(right.inter(u));
+//        }
     }
 
     public RBTree diff(RBTree u) {
@@ -133,18 +151,14 @@ public class Tree<T extends Comparable> implements RBTree<T> {
     }
 
     public boolean subset(RBTree u) {
-        if (!u.member(data)) {
-            return false;
-        } else {
-            return this.left.subset(u) && this.right.subset(u);
-        }
-
+        return (u.getCount(data) >= this.getCount(data))
+                && this.left.union(this.right).subset(u);
     }
 
     public int getCount(T elt) {
         if (!this.member(elt)) {
             return -1;
-        } else if (elt == data) {
+        } else if (elt.compareTo(data)== 0) {
             return this.count;
         } else if (elt.compareTo(data) < 0) {
             return this.left.getCount(elt);

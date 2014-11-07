@@ -13,8 +13,6 @@ package bags;
 public interface RBTree<T extends Comparable> extends Sequenced<T> {
 
     public int getCount(T o);
-    
-    public RBTree empty();
 
     public boolean isEmpty();
 

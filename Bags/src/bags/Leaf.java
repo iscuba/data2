@@ -23,10 +23,6 @@ public class Leaf<T extends Comparable > implements RBTree<T>{
     public int getCount(T o) {
         return 0;
     }
-    
-    public RBTree empty(){
-        return new Leaf();
-    }
 
     public boolean isEmpty() {
         return true;
