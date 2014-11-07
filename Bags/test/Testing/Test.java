@@ -244,7 +244,7 @@ public class Test {
         int fail = 0;
         for (int i = 0; i < 100; i++) {
             RBTree tree = randSet(new Leaf(), randNum(1, 100));
-            if (!(tree.sumIt() > tree.cardinality())) {
+            if ((tree.sumIt() == tree.cardinality())) {
                 succ = succ + 1;
             } else {
                 fail = fail + 1;
