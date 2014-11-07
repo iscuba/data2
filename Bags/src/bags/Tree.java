@@ -47,11 +47,11 @@ public class Tree<T extends Comparable> implements RBTree<T> {
 
     public RBTree addSome(T elt, int n) {
         if (elt.compareTo(data) == 0) {
-            return new Tree(this.left, data, count + n, this.right);
+            return new Tree(this.left, data, count + n, this.right, color);
         } else if (elt.compareTo(data) < 0) {
-            return new Tree(left.addSome(elt, n), data, count, right);
+            return new Tree(left.addSome(elt, n), data, count, right, color);
         } else {
-            return new Tree(left, data, count, right.addSome(elt, n));
+            return new Tree(left, data, count, right.addSome(elt, n), color);
         }
     }
     
@@ -73,11 +73,11 @@ public class Tree<T extends Comparable> implements RBTree<T> {
 
     public RBTree removeSome(T elt, int n) {
         if (elt.compareTo(data) == 0) {
-            return new Tree(left, data, count - n, right);
+            return new Tree(left, data, count - n, right, color);
         } else if (elt.compareTo(data) < 0) {
-            return new Tree(left.removeSome(elt, n), data, count, right);
+            return new Tree(left.removeSome(elt, n), data, count, right, color);
         } else {
-            return new Tree(left, data, count, right.removeSome(elt, n));
+            return new Tree(left, data, count, right.removeSome(elt, n), color);
         }
     }
 
@@ -85,9 +85,9 @@ public class Tree<T extends Comparable> implements RBTree<T> {
         if (elt.compareTo(this.data) == 0) {
             return this.right.union(left);
         } else if (elt.compareTo(this.data) < 0) {
-            return new Tree(left.removeAll(elt), data, count, right);
+            return new Tree(left.removeAll(elt), data, count, right, color);
         } else {
-            return new Tree(left, data, count, right.removeAll(elt));
+            return new Tree(left, data, count, right.removeAll(elt),color);
         }
     }
 
@@ -109,7 +109,7 @@ public class Tree<T extends Comparable> implements RBTree<T> {
 
     public RBTree inter(RBTree u) {
         if (u.member(this.data)) {
-            return new Tree(this.left.inter(u), data, count, this.right.inter(u));
+            return new Tree(this.left.inter(u), data, count, this.right.inter(u),color);
         } else {
             return left.inter(u).union(right.inter(u));
         }
@@ -123,7 +123,7 @@ public class Tree<T extends Comparable> implements RBTree<T> {
                 return left.union(right).diff(u.remove(data));
             }
         } else {
-            return new Tree(left.diff(u), data, count, right.diff(u));
+            return new Tree(left.diff(u), data, count, right.diff(u),color);
         }
         
     }

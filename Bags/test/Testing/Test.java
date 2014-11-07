@@ -6,7 +6,7 @@
 package Testing;
 
 import bags.Leaf;
-import bags.Set;
+import bags.RBTree;
 import java.util.*;
 
 /**
@@ -21,7 +21,7 @@ public class Test {
         return randNum;
     }
 
-    public static Set randSet(Set start, int length) {
+    public static RBTree randSet(RBTree start, int length) {
         if (start.cardinality() == length) {
             return start;
         } else {
@@ -30,7 +30,7 @@ public class Test {
         }
     }
 
-    public static void checkEmpty(Set MT) {
+    public static void checkEmpty(RBTree MT) {
         if (MT.isEmptyHuh()) {
             System.out.println("Success for checkEmpty");
         } else {
@@ -38,9 +38,9 @@ public class Test {
         }
     }
 
-    public static void checkAdd(Set set) {
+    public static void checkAdd(RBTree set) {
         int num = randNum(0, 100);
-        Set set2 = set.add(num);
+        RBTree set2 = set.add(num);
         if (set2.member(num)) {
             System.out.println("Success for checkAdd");
         } else {
@@ -48,9 +48,9 @@ public class Test {
         }
     }
     
-    public static void checkSubset(Set set){
+    public static void checkSubset(RBTree set){
         int num = randNum(0, 100);
-        Set subs = set.add(num);
+        RBTree subs = set.add(num);
         if (set.subset(subs)){
             System.out.println("Success for CheckSubset");
         } else {
@@ -58,10 +58,10 @@ public class Test {
         }
     }
 
-    public static void checkRemove(Set set) {
+    public static void checkRemove(RBTree set) {
         int num = randNum(0, 100);
-        Set set2 = set.add(num);
-        Set removed = set2.remove(num);
+        RBTree set2 = set.add(num);
+        RBTree removed = set2.remove(num);
         if (removed.equal(set)) {
             System.out.println("Success for checkRemove");
         } //        if ((!removed.member(num)) || (removed.getCount(num)< set.getCount(num))) {
@@ -73,13 +73,13 @@ public class Test {
     }
     
     //Why does this return false? 
-    public static void checkSubs(Set set){
+    public static void checkSubs(RBTree set){
         System.out.println(set.subset(set));
     }
 
     //doesn't work 
-    public static void testUnionSubset(Set set1, Set set2) {
-        Set testSet1 = set1.union(set2);
+    public static void testUnionSubset(RBTree set1, RBTree set2) {
+        RBTree testSet1 = set1.union(set2);
         if ((testSet1.subset(set1)) && (testSet1.subset(set2))) {
             System.out.println("Success for testUnionSubset");
         } else {
@@ -87,7 +87,7 @@ public class Test {
         }
     }
 
-    public static void testMemberAdd(Set set1, int num) {
+    public static void testMemberAdd(RBTree set1, int num) {
         if (set1.add(num).member(num)) {
             System.out.println("Success for testMemberAdd");
         } else {
@@ -95,7 +95,7 @@ public class Test {
         }
     }
 
-    public static void testAddCardinality(Set set1, int num) {
+    public static void testAddCardinality(RBTree set1, int num) {
         int test = set1.add(num).cardinality();
         if (((set1.cardinality() + 1) == test) || (set1.cardinality() == test)) {
             System.out.println("Success for testAddCardinality");
@@ -104,7 +104,7 @@ public class Test {
         }
     }
 
-    public static void testUnionMember(Set set1, Set set2, int num) {
+    public static void testUnionMember(RBTree set1, RBTree set2, int num) {
         if (set1.union(set2).member(num) == (set1.member(num) || (set2.member(num)))) {
             System.out.println("Success for testUnionMember");
         } else if (!(set1.member(num) || set2.member(num))) {
@@ -115,7 +115,7 @@ public class Test {
     }
 
     //doesn't work 
-    public static void testAddRemoveEqual(Set set1, int num) {
+    public static void testAddRemoveEqual(RBTree set1, int num) {
         if (((set1.add(num)).remove(num)).equal(set1)) {
             System.out.println("Success for testAddRemoveEqual");
         } else {
@@ -123,7 +123,7 @@ public class Test {
         }
     }
 
-    public static void testSubset(Set set1, Set set2, Set set3) {
+    public static void testSubset(RBTree set1, RBTree set2, RBTree set3) {
         if ((set1.union(set2)).subset(set3)
                 == (set1.subset(set3) && set2.subset(set3))) {
             System.out.println("Success for testSubset");
@@ -133,7 +133,7 @@ public class Test {
     }
 
     //doesn't work 
-    public static void testEqualUnionInterDiff(Set set1, Set set2, int num) {
+    public static void testEqualUnionInterDiff(RBTree set1, RBTree set2, int num) {
         if (((set1.inter(set2)).union(set2.diff(set1)).union(set1.diff(set2))).equal(set1.union(set2))) {
             System.out.println("Success for testEqualUnionInterDiff");
         } else {
@@ -142,7 +142,7 @@ public class Test {
 
     }
 
-    public static void testUnionLeaf(Set set, Leaf leaf) {
+    public static void testUnionLeaf(RBTree set, Leaf leaf) {
         if (leaf.union(set) == set) {
             System.out.println("success for testUnionLeaf");
         } else {
@@ -150,8 +150,8 @@ public class Test {
         }
     }
 
-    public static void testEmptyInter(Set set, Leaf leaf) {
-        if (set.inter(leaf).isEmptyHuh()) {
+    public static void testEmptyInter(RBTree set, Leaf leaf) {
+        if (set.inter(leaf).isEmpty()) {
             System.out.println("success for testEmptyInter");
         } else {
             System.out.println("Fail for testEmptyInter");
@@ -159,7 +159,7 @@ public class Test {
     }
 
     //doesn't work
-    public static void testDiffEmpty(Set set, Leaf leaf) {
+    public static void testDiffEmpty(RBTree set, Leaf leaf) {
         if (leaf.diff(set).equal(set)) {
             System.out.println("success for testDiffEmpty");
         } else {
@@ -167,15 +167,15 @@ public class Test {
         }
     }
 
-    public static void testInter(Set set1, Set set2, int elt) {
-        if (set1.add(elt).inter(set2.add(elt)).isEmptyHuh()) {
+    public static void testInter(RBTree set1, RBTree set2, int elt) {
+        if (set1.add(elt).inter(set2.add(elt)).isEmpty()) {
             System.out.println("fail for testInter");
         } else {
             System.out.println("Success for testinter");
         }
     }
 
-    public static void checkEqual(Set EMT, Set MT) {
+    public static void checkEqual(RBTree EMT, RBTree MT) {
         if (EMT.equal(MT)) {
             System.out.println("Success for testEqual");
         } else {
@@ -183,7 +183,7 @@ public class Test {
         }
     }
 
-    public static void checkTransitivity(Set one, Set two, Set three) {
+    public static void checkTransitivity(RBTree one, RBTree two, RBTree three) {
         if ((one.subset(two)) && (two.subset(three)) && !(one.subset(three))) {
             System.out.println("check Transitivity failed");
         } else {
