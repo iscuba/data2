@@ -194,18 +194,6 @@ public class Test {
         System.out.println("checkSubset  Success: " + countSucc + "  Failure: " + countFail);
     }
 
-    public static void checkDepth() {
-        int succ = 0;
-        int fail = 0;
-        RBTree tree = randSet(new Leaf(), randNum(1, 100));
-        for (int i = 0; i < 100; i++) {
-            if () {
-                
-            }
-        }
-        System.out.println("CheckRemoveGetCount  Success: " + succ + "  Failure: " + fail);
-    }
-
     public static void checkCardAdd() {
         int succ = 0;
         int fail = 0;
