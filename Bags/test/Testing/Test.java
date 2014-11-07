@@ -215,7 +215,7 @@ public class Test {
         RBTree tree = randSet(new Leaf(), randNum(1, 100));
         RBTree removed = tree.remove(rand);
         for (int i = 0; i < 100; i++) {
-            if (removed.getCount(rand) > tree.getCount(rand)) {
+            if (removed.getCount(rand) <= tree.getCount(rand)) {
                 succ = succ + 1;
             } else {
                 fail = fail + 1;
